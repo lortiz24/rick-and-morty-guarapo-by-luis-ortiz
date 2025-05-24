@@ -16,15 +16,6 @@ export const CharacterList = ({ filters }: CharacterListProps) => {
 		if (data?.characters.info.next) {
 			fetchMore({
 				variables: { page: data.characters.info.next, filter: filters },
-				updateQuery: (prev, { fetchMoreResult }) => {
-					if (!fetchMoreResult) return prev;
-					return {
-						characters: {
-							...fetchMoreResult.characters,
-							results: [...prev.characters.results, ...fetchMoreResult.characters.results],
-						},
-					};
-				},
 			});
 			setPage(data.characters.info.next);
 		}
@@ -36,14 +27,14 @@ export const CharacterList = ({ filters }: CharacterListProps) => {
 		<Box>
 			<Grid container spacing={2} justifyContent='center'>
 				{data?.characters.results.map((char: any) => (
-					<Grid item key={char.id}>
+					<Grid key={char.id}>
 						<CharacterCard name={char.name} image={char.image} species={char.species} />
 					</Grid>
 				))}
 			</Grid>
 			{data?.characters.info.next && (
 				<Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-					<Button variant='outlined' onClick={handleLoadMore}>
+					<Button variant='outlined' onClick={handleLoadMore} loading={loading}>
 						Load More
 					</Button>
 				</Box>

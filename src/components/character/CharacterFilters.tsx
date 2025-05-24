@@ -1,6 +1,7 @@
 import { Box, TextField, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
 import { CharacterFiltersValues } from '../../interfaces/character.interface';
 import { speciesOptions, genderOptions, statusOptions } from '../../constants/filter.constants';
+import { ChangeEvent } from 'react';
 
 interface Props {
 	filters: CharacterFiltersValues;
@@ -9,7 +10,9 @@ interface Props {
 
 export const CharacterFilters = ({ filters, onChange }: Props) => {
 	const handleChange = (
-		e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>
+		e:
+			| (Event & { target: { value: string; name: string } })
+			| ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
 		const { name, value } = e.target;
 		onChange({ ...filters, [name!]: value });
