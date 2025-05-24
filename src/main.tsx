@@ -8,13 +8,25 @@ import '@fontsource/roboto/700.css';
 import { AppRouter } from './routes/AppRouter';
 import { AppLayout } from './layouts/AppLayout';
 import { BrowserRouter } from 'react-router-dom';
+import {
+	ApolloClient,
+	InMemoryCache,
+	ApolloProvider
+} from '@apollo/client';
+
+const client = new ApolloClient({
+	uri: 'https://rickandmortyapi.com/graphql',
+	cache: new InMemoryCache(),
+});
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
-		<BrowserRouter>
-			<AppLayout>
-				<AppRouter />
-			</AppLayout>
-		</BrowserRouter>
+		<ApolloProvider client={client}>
+			<BrowserRouter>
+				<AppLayout>
+					<AppRouter />
+				</AppLayout>
+			</BrowserRouter>
+		</ApolloProvider>
 	</StrictMode>
 );
