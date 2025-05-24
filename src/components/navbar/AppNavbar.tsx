@@ -43,7 +43,7 @@ export const AppNavbar = () => {
 									color: '#111',
 								}}
 							>
-								Inicio
+								Characters
 							</Link>
 							<Link
 								href='#'
@@ -52,10 +52,12 @@ export const AppNavbar = () => {
 									fontFamily: 'Karla, sans-serif',
 									fontWeight: 'bold',
 									fontSize: 18,
-									color: '#111',
+									color: 'grey.600',
+									cursor: 'default',
+									pointerEvents: 'none'
 								}}
 							>
-								Personajes
+								Locations
 							</Link>
 							<Link
 								href='#'
@@ -64,10 +66,12 @@ export const AppNavbar = () => {
 									fontFamily: 'Karla, sans-serif',
 									fontWeight: 'bold',
 									fontSize: 18,
-									color: '#111',
+									color: 'grey.600',
+									cursor: 'default',
+									pointerEvents: 'none'
 								}}
 							>
-								Contacto
+								Episodes
 							</Link>
 						</Box>
 					</Box>

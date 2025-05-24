@@ -1,23 +1,27 @@
 import { Box } from '@mui/material';
-import { CharacterCard } from '../components/character/CharacterCard';
+import { useState } from 'react';
+import { CharacterFilters } from '../components/character/CharacterFilters';
+import { CharacterList } from '../components/character/CharacterList';
+import { CharacterFiltersValues } from '../interfaces/character.interface';
 
 export const CharactersPage = () => {
+	const [filters, setFilters] = useState<CharacterFiltersValues>({
+		name: '',
+		species: '',
+		gender: '',
+		status: '',
+	});
+
 	return (
-		<Box
-			sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-		>
+		<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
 			<Box
 				component='img'
 				src={'assets/images/Banner.png'}
 				alt='Logo'
 				sx={{ height: 200, width: 'auto' }}
 			/>
-
-			<CharacterCard
-				name='Rick'
-				image='https://rickandmortyapi.com/api/character/avatar/1.jpeg'
-				species='Human'
-			/>
+			<CharacterFilters filters={filters} onChange={setFilters} />
+			<CharacterList filters={filters} />
 		</Box>
 	);
 };
