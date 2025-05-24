@@ -1,8 +1,7 @@
 import { Box, TextField, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
-import { useState, useEffect, ChangeEvent } from 'react';
 import { CharacterFiltersValues } from '../../interfaces/character.interface';
 import { speciesOptions, genderOptions, statusOptions } from '../../constants/filter.constants';
-import { useDebounce } from '../../hook/useDebounce';
+import { useCharacterFilters } from '../../hook/useCharacterFilters';
 
 interface Props {
 	filters: CharacterFiltersValues;
@@ -10,27 +9,7 @@ interface Props {
 }
 
 export const CharacterFilters = ({ filters, onChange }: Props) => {
-	const [inputValue, setInputValue] = useState(filters.name);
-	const debouncedValue = useDebounce(inputValue, 500);
-
-	useEffect(() => {
-		if (debouncedValue !== filters.name) {
-			onChange({ ...filters, name: debouncedValue });
-		}
-	}, [debouncedValue]);
-
-	const handleChange = (
-		e:
-			| (Event & { target: { value: string; name: string } })
-			| ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-	) => {
-		const { name, value } = e.target;
-		if (name === 'name') {
-			setInputValue(value as string);
-		} else {
-			onChange({ ...filters, [name!]: value });
-		}
-	};
+	const { inputValue, handleChange } = useCharacterFilters(filters, onChange);
 
 	return (
 		<Box

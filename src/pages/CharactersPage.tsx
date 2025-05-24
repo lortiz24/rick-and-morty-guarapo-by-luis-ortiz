@@ -4,6 +4,12 @@ import { CharacterFilters } from '../components/character/CharacterFilters';
 import { CharacterList } from '../components/character/CharacterList';
 import { CharacterFiltersValues } from '../interfaces/character.interface';
 
+/*Test:
+
+1.Estado inicial de los filtros
+2. Banner renderizada
+
+*/
 export const CharactersPage = () => {
 	const [filters, setFilters] = useState<CharacterFiltersValues>({
 		name: '',

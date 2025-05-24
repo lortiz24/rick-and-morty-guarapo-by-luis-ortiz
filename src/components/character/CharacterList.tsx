@@ -1,25 +1,14 @@
-import { useState } from 'react';
-import { useCharacters } from '../../hook/useCharacters';
 import { CharacterCard } from './CharacterCard';
 import { Box, Grid, Button, CircularProgress } from '@mui/material';
 import { CharacterFiltersValues } from '../../interfaces/character.interface';
+import { useCharacters } from '../../hook/useCharacters';
 
 interface CharacterListProps {
 	filters: CharacterFiltersValues;
 }
 
 export const CharacterList = ({ filters }: CharacterListProps) => {
-	const [page, setPage] = useState(1);
-	const { data, loading, fetchMore } = useCharacters(filters, page);
-
-	const handleLoadMore = () => {
-		if (data?.characters.info.next) {
-			fetchMore({
-				variables: { page: data.characters.info.next, filter: filters },
-			});
-			setPage(data.characters.info.next);
-		}
-	};
+	const { data, loading, isFetchingMore, loadMore } = useCharacters(filters);
 
 	if (loading && !data) return <CircularProgress />;
 
@@ -34,7 +23,7 @@ export const CharacterList = ({ filters }: CharacterListProps) => {
 			</Grid>
 			{data?.characters.info.next && (
 				<Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-					<Button variant='outlined' onClick={handleLoadMore} loading={loading}>
+					<Button variant='outlined' onClick={loadMore} disabled={isFetchingMore}>
 						Load More
 					</Button>
 				</Box>
