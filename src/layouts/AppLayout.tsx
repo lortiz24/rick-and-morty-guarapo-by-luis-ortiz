@@ -1,4 +1,4 @@
-import { Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { AppNavbar } from '../components/navbar/AppNavbar';
 
 interface Props {
@@ -6,10 +6,11 @@ interface Props {
 }
 export const AppLayout = ({ children }: Props) => {
 	return (
-		<div>
-			<AppNavbar />
-
+		<Box>
+			<Box sx={{ mb: '26px' }}>
+				<AppNavbar />
+			</Box>
 			<Container>{children}</Container>
-		</div>
+		</Box>
 	);
 };
