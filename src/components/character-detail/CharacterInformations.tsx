@@ -28,7 +28,7 @@ interface FieldProps {
 }
 
 const Field = ({ label, value }: FieldProps) => (
-	<Box>
+	<Box aria-label={`${label} - ${value}`}>
 		<Typography variant='body2' sx={{ fontWeight: 600 }}>
 			{label}
 		</Typography>
