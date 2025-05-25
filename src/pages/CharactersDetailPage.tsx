@@ -1,52 +1,16 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { useQuery, gql } from '@apollo/client';
 import { Box, Button, CircularProgress } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CharacterInformations } from '../components/character-detail/CharacterInformations';
 import { CharacterEpisodes } from '../components/character-detail/CharacterEpisodes.tsx';
 import { CharacterHeader } from '../components/character-detail/CharacterHeader.tsx';
-
-const GET_CHARACTER = gql`
-	query GetCharacter($id: ID!) {
-		character(id: $id) {
-			id
-			name
-			image
-			gender
-			status
-			species
-			type
-			origin {
-				name
-				id
-			}
-			location {
-				name
-				id
-			}
-			episode {
-				id
-				name
-				episode
-				air_date
-			}
-		}
-	}
-`;
+import { useCharacterDetail } from '../hook/useCharacterDetail';
 
 export const CharactersDetailPage = () => {
-	const { characterId } = useParams<{ characterId: string }>();
-	const navigate = useNavigate();
-	const isValidId = characterId && !isNaN(Number(characterId));
+	const { isValidId, character, loading, error, navigate } = useCharacterDetail();
 
 	if (!isValidId) {
 		return <div style={{ color: 'red', fontWeight: 'bold' }}>ID de personaje no válido</div>;
 	}
-
-	const { data, loading, error } = useQuery(GET_CHARACTER, {
-		variables: { id: characterId },
-		skip: !characterId,
-	});
 
 	if (loading)
 		return (
@@ -63,8 +27,6 @@ export const CharactersDetailPage = () => {
 			</Box>
 		);
 	if (error) return <div>Error al cargar el personaje</div>;
-
-	const character = data?.character;
 	if (!character) return <div>No se encontró el personaje</div>;
 
 	return (
@@ -123,7 +85,7 @@ export const CharactersDetailPage = () => {
 						background: '#fff',
 						borderRadius: 2,
 						boxShadow: 1,
-						height: { xs: 'auto', md: 352 },
+						height: 352,
 						overflowY: 'auto',
 					}}
 				>
