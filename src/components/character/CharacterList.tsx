@@ -1,36 +1,41 @@
 import { CharacterCard } from './CharacterCard';
-import { Box, Grid, Button, CircularProgress } from '@mui/material';
-import { CharacterFiltersValues } from '../../interfaces/character.interface';
-import { useCharacters } from '../../hook/useCharacters';
-import { useNavigate } from 'react-router-dom';
+import { Box, Button, CircularProgress } from '@mui/material';
 
 interface CharacterListProps {
-	filters: CharacterFiltersValues;
+	characters: Array<{ id: string; name: string; image: string; species: string }>;
+	onCardClick?: (id: string) => void;
+	loading?: boolean;
+	hasMore?: boolean;
+	onLoadMore?: () => void;
+	isLoadingMore?: boolean;
 }
 
-export const CharacterList = ({ filters }: CharacterListProps) => {
-	const { data, loading, isFetchingMore, loadMore } = useCharacters(filters);
-	const navigate = useNavigate();
-
-	if (loading && !data) return <CircularProgress />;
+export const CharacterList = ({
+	characters,
+	onCardClick,
+	loading,
+	hasMore,
+	onLoadMore,
+	isLoadingMore,
+}: CharacterListProps) => {
+	if (loading) return <CircularProgress />;
 
 	return (
 		<Box>
-			<Grid container spacing={2} justifyContent='center'>
-				{data?.characters.results.map((char: any) => (
-					<Grid key={char.id}>
-						<CharacterCard
-							name={char.name}
-							image={char.image}
-							species={char.species}
-							onClick={() => navigate(`/characters/detail/${char.id}`)}
-						/>
-					</Grid>
+			<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
+				{characters.map((char) => (
+					<CharacterCard
+						key={char.id}
+						name={char.name}
+						image={char.image}
+						species={char.species}
+						onClick={() => onCardClick?.(char.id)}
+					/>
 				))}
-			</Grid>
-			{data?.characters.info.next && (
+			</Box>
+			{hasMore && onLoadMore && (
 				<Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-					<Button variant='outlined' onClick={loadMore} disabled={isFetchingMore}>
+					<Button variant='outlined' onClick={onLoadMore} disabled={isLoadingMore}>
 						Load More
 					</Button>
 				</Box>
