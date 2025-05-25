@@ -3,6 +3,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import { Container } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 
 export const AppNavbar = () => {
 	return (
@@ -34,8 +35,9 @@ export const AppNavbar = () => {
 						/>
 						<Box sx={{ display: 'flex', alignItems: 'center', gap: '25px' }}>
 							<Link
-								href='#'
-								underline='none'
+								component={RouterLink}
+								to="/characters"
+								underline="none"
 								sx={{
 									fontFamily: 'Karla, sans-serif',
 									fontWeight: 'bold',
