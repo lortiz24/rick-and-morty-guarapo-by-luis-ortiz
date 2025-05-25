@@ -1,69 +1,38 @@
-import { Box, Typography } from '@mui/material';
-import Divider from '@mui/material/Divider';
+import { Box, Typography, Divider } from '@mui/material';
 
-interface Props {
-	gender: string;
-	status: string;
-	species: string;
-	origin: string;
-	type: string;
-	location: string;
+interface CharacterInformationsProps {
+	children: React.ReactNode;
 }
 
-export const CharacterInformations = ({
-	gender,
-	status,
-	species,
-	origin,
-	type,
-	location,
-}: Props) => (
+const CharacterInformations = ({ children }: CharacterInformationsProps) => (
 	<Box sx={{ p: 2 }}>
 		<Typography variant='subtitle1' sx={{ fontWeight: 600, color: 'text.secondary', mb: 2 }}>
 			Informations
 		</Typography>
 		<Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-			<Box>
-				<Typography variant='body2' sx={{ fontWeight: 600 }}>
-					Gender
-				</Typography>
-				<Typography variant='body2'>{gender}</Typography>
-			</Box>
-			<Divider />
-			<Box>
-				<Typography variant='body2' sx={{ fontWeight: 600 }}>
-					Status
-				</Typography>
-				<Typography variant='body2'>{status}</Typography>
-			</Box>
-			<Divider />
-			<Box>
-				<Typography variant='body2' sx={{ fontWeight: 600 }}>
-					Specie
-				</Typography>
-				<Typography variant='body2'>{species}</Typography>
-			</Box>
-			<Divider />
-			<Box>
-				<Typography variant='body2' sx={{ fontWeight: 600 }}>
-					Origin
-				</Typography>
-				<Typography variant='body2'>{origin}</Typography>
-			</Box>
-			<Divider />
-			<Box>
-				<Typography variant='body2' sx={{ fontWeight: 600 }}>
-					Type
-				</Typography>
-				<Typography variant='body2'>{type || 'Unknown'}</Typography>
-			</Box>
-			<Divider />
-			<Box>
-				<Typography variant='body2' sx={{ fontWeight: 600 }}>
-					Location
-				</Typography>
-				<Typography variant='body2'>{location}</Typography>
-			</Box>
+			{children}
 		</Box>
 	</Box>
 );
+
+interface FieldProps {
+	label: string;
+	value: string | number | React.ReactNode;
+}
+
+const Field = ({ label, value }: FieldProps) => (
+	<>
+		<Box>
+			<Typography variant='body2' sx={{ fontWeight: 600 }}>
+				{label}
+			</Typography>
+			<Typography variant='body2'>{value}</Typography>
+		</Box>
+		<Divider />
+	</>
+);
+
+// Asignar el subcomponente como propiedad del principal
+CharacterInformations.Field = Field;
+
+export { CharacterInformations };

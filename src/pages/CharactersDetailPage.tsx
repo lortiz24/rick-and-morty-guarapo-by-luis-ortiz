@@ -2,7 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import { Box, Button, CircularProgress } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { CharacterInformations } from '../components/character-detail/CharacterInformations.tsx';
+import { CharacterInformations } from '../components/character-detail/CharacterInformations';
 import { CharacterEpisodes } from '../components/character-detail/CharacterEpisodes.tsx';
 import { CharacterHeader } from '../components/character-detail/CharacterHeader.tsx';
 
@@ -38,8 +38,7 @@ export const CharactersDetailPage = () => {
 	const { characterId } = useParams<{ characterId: string }>();
 	const navigate = useNavigate();
 	const isValidId = characterId && !isNaN(Number(characterId));
-	console.log('characterId', characterId);
-	console.log('isValidId', isValidId);
+
 	if (!isValidId) {
 		return <div style={{ color: 'red', fontWeight: 'bold' }}>ID de personaje no válido</div>;
 	}
@@ -108,14 +107,14 @@ export const CharactersDetailPage = () => {
 						boxShadow: 1,
 					}}
 				>
-					<CharacterInformations
-						gender={character.gender}
-						status={character.status}
-						species={character.species}
-						origin={character.origin?.name}
-						type={character.type}
-						location={character.location?.name}
-					/>
+					<CharacterInformations>
+						<CharacterInformations.Field label='Gender' value={character.gender} />
+						<CharacterInformations.Field label='Status' value={character.status} />
+						<CharacterInformations.Field label='Specie' value={character.species} />
+						<CharacterInformations.Field label='Origin' value={character.origin?.name} />
+						<CharacterInformations.Field label='Type' value={character.type || 'Unknown'} />
+						<CharacterInformations.Field label='Location' value={character.location?.name} />
+					</CharacterInformations>
 				</Box>
 				<Box
 					sx={{
