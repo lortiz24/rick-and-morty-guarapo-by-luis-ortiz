@@ -31,8 +31,15 @@ export const CharacterFilters = ({ filters, onChange }: Props) => {
 				sx={{ width: 240 }}
 			/>
 			<FormControl size='small' sx={{ minWidth: 120, width: 240 }}>
-				<InputLabel>Species</InputLabel>
-				<Select name='species' value={filters.species} label='Species' onChange={handleChange}>
+				<InputLabel id='species-label'>Species</InputLabel>
+				<Select
+					labelId='species-label'
+					id='species-select'
+					name='species'
+					value={filters.species}
+					label='Species'
+					onChange={handleChange}
+				>
 					{speciesOptions.map((opt) => (
 						<MenuItem key={opt} value={opt}>
 							{opt || 'All'}
@@ -40,9 +47,17 @@ export const CharacterFilters = ({ filters, onChange }: Props) => {
 					))}
 				</Select>
 			</FormControl>
+
 			<FormControl size='small' sx={{ minWidth: 120, width: 240 }}>
-				<InputLabel>Gender</InputLabel>
-				<Select name='gender' value={filters.gender} label='Gender' onChange={handleChange}>
+				<InputLabel id='gender-label'>Gender</InputLabel>
+				<Select
+					labelId='gender-label'
+					id='gender-select'
+					name='gender'
+					value={filters.gender}
+					label='Gender'
+					onChange={handleChange}
+				>
 					{genderOptions.map((opt) => (
 						<MenuItem key={opt} value={opt}>
 							{opt || 'All'}
@@ -51,8 +66,15 @@ export const CharacterFilters = ({ filters, onChange }: Props) => {
 				</Select>
 			</FormControl>
 			<FormControl size='small' sx={{ minWidth: 120, width: 240 }}>
-				<InputLabel>Status</InputLabel>
-				<Select name='status' value={filters.status} label='Status' onChange={handleChange}>
+				<InputLabel id='status-label'>Status</InputLabel>
+				<Select
+					labelId='status-label'
+					id='status-select'
+					name='status'
+					value={filters.status}
+					label='Status'
+					onChange={handleChange}
+				>
 					{statusOptions.map((opt) => (
 						<MenuItem key={opt} value={opt}>
 							{opt || 'All'}
