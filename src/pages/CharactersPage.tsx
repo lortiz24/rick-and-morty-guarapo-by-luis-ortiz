@@ -29,6 +29,8 @@ export const CharactersPage = () => {
 				src={'assets/images/Banner.png'}
 				alt='Logo'
 				sx={{ height: 200, width: 'auto' }}
+				width={800}
+				height={200}
 			/>
 			<CharacterFilters filters={filters} onChange={setFilters} />
 			<CharacterList

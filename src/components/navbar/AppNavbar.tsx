@@ -32,6 +32,8 @@ export const AppNavbar = () => {
 							src={'assets/images/logo-black.svg'}
 							alt='Logo'
 							sx={{ height: 49, width: 46 }}
+							width={46}
+							height={49}
 						/>
 						<Box sx={{ display: 'flex', alignItems: 'center', gap: '25px' }}>
 							<Link

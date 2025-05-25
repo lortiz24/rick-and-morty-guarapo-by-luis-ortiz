@@ -35,6 +35,8 @@ export const CharacterCard = ({ name, image, species, onClick }: CharacterCardPr
 					width: '100%',
 					objectFit: 'cover',
 				}}
+				width={240}
+				height={168}
 			/>
 			<CardContent sx={{ p: 2, pb: '0!important' }}>
 				<Typography
