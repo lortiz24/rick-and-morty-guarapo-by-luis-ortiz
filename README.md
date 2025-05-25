@@ -1,50 +1,23 @@
-# React + TypeScript + Vite
+# Rick and Morty Guarapo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripción
 
-Currently, two official plugins are available:
+Este proyecto es una aplicación React que consume la API GraphQL de Rick and Morty. Aquí detallo las decisiones técnicas y patrones que apliqué durante el desarrollo:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Decisiones y patrones implementados
 
-## Expanding the ESLint configuration
+1. **Uso de GraphQL**
+   - Decidí utilizar GraphQL porque cada personaje tiene muchos metadatos, pero en la lista con scroll infinito solo necesito algunos campos. Así, ahorro en la cantidad de datos solicitados y optimizo el rendimiento de la app.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+2. **Patrón Compound Components**
+   - Apliqué el patrón Compound Components en la visualización de la información del personaje. Esto mejora la extensibilidad, ya que permite agregar fácilmente más metadatos o campos visuales en el futuro sin modificar la estructura principal del componente.
 
-- Configure the top-level `parserOptions` property like this:
+3. **Patrón Presentational & Container**
+   - Separé la lógica de presentación y la lógica de negocio usando el patrón Presentational & Container, especialmente en los componentes `CharacterList` y la página `CharactersPage`. Esto facilita el testing, la reutilización y el mantenimiento del código.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+4. **Testing con Vitest y React Testing Library**
+   - Realicé pruebas unitarias y de integración usando Vitest y React Testing Library. Esto asegura que los componentes funcionen correctamente y que la experiencia de usuario sea estable ante cambios futuros.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+5. **Buenas prácticas adicionales**
+   - Encapsulé la lógica de negocio y de queries en custom hooks, siguiendo principios SOLID y Clean Code, lo que facilita la escalabilidad y el testing.
+   - Implementé debouncing en los filtros para evitar consultas innecesarias a la API mientras el usuario escribe.

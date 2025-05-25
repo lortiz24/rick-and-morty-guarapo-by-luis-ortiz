@@ -29,7 +29,6 @@ export function useCharacters(filters: CharacterFiltersValues, firstPage = 1) {
 		notifyOnNetworkStatusChange: true,
 	});
 
-	// Si cambian los filtros, resetea la página
 	const setFilters = (newFilters: CharacterFiltersValues) => {
 		setPage(firstPage);
 		refetch({ page: firstPage, filter: newFilters });
