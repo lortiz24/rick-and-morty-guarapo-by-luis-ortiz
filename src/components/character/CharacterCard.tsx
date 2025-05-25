@@ -2,14 +2,16 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-
+import { useNavigate } from 'react-router-dom';
 interface CharacterCardProps {
+	id: string;
 	name: string;
 	image: string;
 	species: string;
 }
 
-export const CharacterCard = ({ name, image, species }: CharacterCardProps) => {
+export const CharacterCard = ({ id, name, image, species }: CharacterCardProps) => {
+	const navigate = useNavigate();
 	return (
 		<Card
 			sx={{
@@ -20,8 +22,10 @@ export const CharacterCard = ({ name, image, species }: CharacterCardProps) => {
 				display: 'flex',
 				flexDirection: 'column',
 				overflow: 'hidden',
+				cursor: 'pointer',
 			}}
 			elevation={0}
+			onClick={() => navigate(`/characters/detail/${id}`)}
 		>
 			<CardMedia
 				component='img'

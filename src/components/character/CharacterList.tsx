@@ -17,7 +17,12 @@ export const CharacterList = ({ filters }: CharacterListProps) => {
 			<Grid container spacing={2} justifyContent='center'>
 				{data?.characters.results.map((char: any) => (
 					<Grid key={char.id}>
-						<CharacterCard name={char.name} image={char.image} species={char.species} />
+						<CharacterCard
+							id={char.id}
+							name={char.name}
+							image={char.image}
+							species={char.species}
+						/>
 					</Grid>
 				))}
 			</Grid>

@@ -6,7 +6,7 @@ export const AppRouter = () => {
 	return (
 		<Routes>
 			<Route path='/characters' element={<CharactersPage />} />
-			<Route path='/characters/detail' element={<CharactersDetailPage />} />
+			<Route path='/characters/detail/:characterId' element={<CharactersDetailPage />} />
 			<Route path='*' element={<Navigate to='/characters' replace />} />
 		</Routes>
 	);
