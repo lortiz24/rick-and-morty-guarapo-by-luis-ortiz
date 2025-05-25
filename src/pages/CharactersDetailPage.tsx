@@ -1,9 +1,10 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, CircularProgress } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CharacterInformations } from '../components/character-detail/CharacterInformations.tsx';
 import { CharacterEpisodes } from '../components/character-detail/CharacterEpisodes.tsx';
+import { CharacterHeader } from '../components/character-detail/CharacterHeader.tsx';
 
 const GET_CHARACTER = gql`
 	query GetCharacter($id: ID!) {
@@ -33,13 +34,12 @@ const GET_CHARACTER = gql`
 	}
 `;
 
-const AVATAR_SIZE = 220;
-
 export const CharactersDetailPage = () => {
 	const { characterId } = useParams<{ characterId: string }>();
 	const navigate = useNavigate();
 	const isValidId = characterId && !isNaN(Number(characterId));
-
+	console.log('characterId', characterId);
+	console.log('isValidId', isValidId);
 	if (!isValidId) {
 		return <div style={{ color: 'red', fontWeight: 'bold' }}>ID de personaje no válido</div>;
 	}
@@ -49,7 +49,20 @@ export const CharactersDetailPage = () => {
 		skip: !characterId,
 	});
 
-	if (loading) return <div>Cargando...</div>;
+	if (loading)
+		return (
+			<Box
+				sx={{
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+					minHeight: '60vh',
+					width: '100%',
+				}}
+			>
+				<CircularProgress />
+			</Box>
+		);
 	if (error) return <div>Error al cargar el personaje</div>;
 
 	const character = data?.character;
@@ -118,22 +131,6 @@ export const CharactersDetailPage = () => {
 					<CharacterEpisodes episodes={character.episode} scrollHeight={352} />
 				</Box>
 			</Box>
-		</Box>
-	);
-};
-
-const CharacterHeader = ({ image, name }: { image: string; name: string }) => {
-	return (
-		<Box>
-			<Box
-				component='img'
-				src={image}
-				alt={name}
-				sx={{ height: AVATAR_SIZE, width: AVATAR_SIZE, borderRadius: '50%', boxShadow: 2, mb: 2 }}
-			/>
-			<Typography variant='h4' sx={{ fontWeight: 500, mb: 3 }}>
-				{name}
-			</Typography>
 		</Box>
 	);
 };
