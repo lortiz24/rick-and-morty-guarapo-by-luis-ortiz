@@ -9,9 +9,10 @@ import { AppRouter } from './routes/AppRouter';
 import { AppLayout } from './layouts/AppLayout';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { getEnvVariables } from './helpers/getEnvVariables';
 
 const client = new ApolloClient({
-	uri: 'https://rickandmortyapi.com/graphql',
+	uri: getEnvVariables().VITE_BASE_URL,
 	cache: new InMemoryCache({
 		typePolicies: {
 			Query: {
