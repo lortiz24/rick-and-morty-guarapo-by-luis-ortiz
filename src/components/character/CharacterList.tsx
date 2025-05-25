@@ -2,6 +2,7 @@ import { CharacterCard } from './CharacterCard';
 import { Box, Grid, Button, CircularProgress } from '@mui/material';
 import { CharacterFiltersValues } from '../../interfaces/character.interface';
 import { useCharacters } from '../../hook/useCharacters';
+import { useNavigate } from 'react-router-dom';
 
 interface CharacterListProps {
 	filters: CharacterFiltersValues;
@@ -9,6 +10,7 @@ interface CharacterListProps {
 
 export const CharacterList = ({ filters }: CharacterListProps) => {
 	const { data, loading, isFetchingMore, loadMore } = useCharacters(filters);
+	const navigate = useNavigate();
 
 	if (loading && !data) return <CircularProgress />;
 
@@ -18,10 +20,10 @@ export const CharacterList = ({ filters }: CharacterListProps) => {
 				{data?.characters.results.map((char: any) => (
 					<Grid key={char.id}>
 						<CharacterCard
-							id={char.id}
 							name={char.name}
 							image={char.image}
 							species={char.species}
+							onClick={() => navigate(`/characters/detail/${char.id}`)}
 						/>
 					</Grid>
 				))}
